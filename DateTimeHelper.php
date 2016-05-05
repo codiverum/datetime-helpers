@@ -1,15 +1,10 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace codiverum\datetime;
 
 use DateInterval;
 use DateTime;
+use InvalidArgumentException;
 
 /**
  * Description of DateTimeHelper
@@ -19,19 +14,30 @@ use DateTime;
 class DateTimeHelper
 {
 
+    const UNIT_DAY = 'D';
+    const UNIT_MONTH = 'M';
+    const UNIT_YEAR = 'Y';
+
     /**
      * Adds years or months or days to $date
      * @param string $unit
      * @param integer $unitCount
-     * @param mixed $date if null current date time will be used
+     * @param integer|DateTime $date if null current date time will be used
      * @return DateTime
      */
     public static function addDateUnits($unit, $unitCount, $date = null)
     {
         /* @var $date DateTime */
         $resDate = new DateTime();
-        if (!is_null($date))
-            $resDate->setTimestamp($date);
+        if (!empty($date))
+        {
+            if ($resDate instanceof DateTime)
+                $resDate = $date;
+            else if (is_numeric($date))
+                $resDate->setTimestamp($date);
+            else
+                throw new InvalidArgumentException("`date` may be only integer or instance of DateTime");
+        }
         $specInterval = static::getDateSpecInterval($unit, $unitCount);
         $interval = new DateInterval($specInterval);
         $resDate->add($interval);
