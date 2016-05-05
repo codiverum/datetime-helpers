@@ -1,0 +1,20 @@
+{
+    "name": "codiverum/datetime-helpers",
+    "description": "Set of useful helpers to manipulate DateTime",
+    "type": "library",
+    "keywords": ["datetime"," helper"," date"," time"],
+    "license": "BSD-4-Clause",
+    "authors": [
+        {
+            "name": "Codiverum",
+            "email": "jozefjagla@gmail.com"
+        }
+    ],
+    "require": {
+    },
+    "autoload": {
+        "psr-4": {
+            "codiverum\\datetime\\": ""
+        }
+    }
+}
